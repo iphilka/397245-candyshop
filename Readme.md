@@ -1,7 +1,7 @@
 # Личный проект «Кэндишоп» [![Build status][travis-image]][travis-url]
 
 * Студент: [Филипп Луговой](https://up.htmlacademy.ru/javascript/15/user/397245).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Закурдаев](https://up.htmlacademy.ru/javascript/15/user/25657).
 
 ---
 
