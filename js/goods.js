@@ -133,6 +133,21 @@ var generateGood = function () {
   };
 };
 
+var renderGoodsCard = function (goods) {
+  var goodsElement = goodTemplate.cloneNode(true);
+  if (goods.amount > 5) {
+    goodsElement.querySelector('.catalog__card').classList.add('card--in-stock');
+  } else if (goods.amount <= 5 && goods.amount >= 1) {
+    goodsElement.querySelector('.catalog__card').classList.add('card--little');
+  }
+  else{
+    goodsElement.querySelector('.catalog__card').classList.add('card--soon');
+  }
+  goodsElement.querySelector('.card__title').textContent = goods.name;
+
+  return goodsElement;
+};
+
 var generateGoodsData = function () {
   for (var i = 0; i < GOODS_COUNT; i++) {
     goodsData[i] = generateGood();
@@ -140,5 +155,26 @@ var generateGoodsData = function () {
   return goodsData;
 };
 
-var good = generateGoodsData();
-debugger;
+var addElementToFragment = function () {
+  for (var i = 0; i < GOODS_COUNT; i++) {
+    fragment.appendChild(renderGoodsCard(goodsData[i]));
+  }
+  return fragment;
+};
+
+var catalogCardsLoad = document.querySelector('.catalog__cards');
+catalogCardsLoad.classList.remove('catalog__cards--load');
+
+var catalogLoad = document.querySelector('.catalog__load');
+catalogLoad.classList.add('visually-hidden');
+
+var goodsListElement = document.querySelector('.catalog__cards');
+var goodTemplate = document.querySelector('#card').content.querySelector('.catalog__card');
+var goodsData = [];
+generateGoodsData();
+var fragment = document.createDocumentFragment();
+addElementToFragment();
+
+goodsListElement.appendChild(fragment);
+
+//debugger
