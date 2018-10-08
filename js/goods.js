@@ -155,7 +155,7 @@ var renderGoodsCard = function (goods) {
     goodsElement.classList.add('card--in-stock');
   } else if (goods.amount <= 5 && goods.amount >= 1) {
     goodsElement.classList.add('card--little');
-  } else{
+  } else {
     goodsElement.classList.add('card--soon');
   }
   goodsElement.querySelector('.card__img').src = goods.picture;
@@ -194,7 +194,6 @@ catalogLoad.classList.add('visually-hidden');
 
 var goodsListElement = document.querySelector('.catalog__cards');
 var goodTemplate = document.querySelector('#card').content.querySelector('.catalog__card');
-var goodsData = [];
 generateGoodsData();
 var fragment = document.createDocumentFragment();
 addElementToFragment();
