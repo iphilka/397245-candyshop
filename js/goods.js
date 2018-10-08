@@ -105,10 +105,10 @@ var getGoodsContent = function () {
   var composition = '';
   var number = getRandomInRange(0, GOODS_CONTENT.length - 1);
   for (var i = 0; i < number; i++) {
-    if(i === number - 1){
+    if (i === number - 1) {
       composition += GOODS_CONTENT[getRandomInRange(0, GOODS_CONTENT.length - 1)];
     }
-    else{
+    else {
       composition += GOODS_CONTENT[getRandomInRange(0, GOODS_CONTENT.length - 1)] + ', ';
     }
   }
@@ -118,8 +118,8 @@ var getGoodsContent = function () {
 var generateGood = function () {
   return {
     name: GOODS_NAME[getRandomInRange(0, GOODS_NAME.length - 1)],
-    picture: GOODS_PICTURE[getRandomInRange (0, GOODS_PICTURE.length - 1)],
-    amount: getRandomInRange(0 , GOODS_AMOUNT_MAX),
+    picture: GOODS_PICTURE[getRandomInRange(0, GOODS_PICTURE.length - 1)],
+    amount: getRandomInRange(0, GOODS_AMOUNT_MAX),
     price: getRandomInRange(GOODS_PRICE_MIN, GOODS_PRICE_MAX),
     weight: getRandomInRange(GOODS_WEIGHT_MIN, GOODS_WEIGHT_MAX),
     rating: {
@@ -135,21 +135,19 @@ var generateGood = function () {
 };
 
 var getRaitingClass = function (rating) {
+  var raitingClass = '';
   if (rating === 1) {
-    return 'stars__rating--one';
+    raitingClass = 'stars__rating--one';
+  } else if (rating === 2) {
+    raitingClass = 'stars__rating--two';
+  } else if (rating === 3) {
+    raitingClass = 'stars__rating--three';
+  } else if (rating === 4) {
+    raitingClass = 'stars__rating--four';
+  } else if (rating === 5) {
+    raitingClass = 'stars__rating--five';
   }
-  else if (rating === 2) {
-    return 'stars__rating--two';
-  }
-  else if (rating === 3) {
-    return 'stars__rating--three';
-  }
-  else if (rating === 4) {
-    return 'stars__rating--four';
-  }
-  else if (rating === 5) {
-    return 'stars__rating--five';
-  }
+  return raitingClass;
 };
 
 var renderGoodsCard = function (goods) {
