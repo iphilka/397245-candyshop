@@ -107,8 +107,7 @@ var getGoodsContent = function () {
   for (var i = 0; i < number; i++) {
     if (i === number - 1) {
       composition += GOODS_CONTENT[getRandomInRange(0, GOODS_CONTENT.length - 1)];
-    }
-    else {
+    } else {
       composition += GOODS_CONTENT[getRandomInRange(0, GOODS_CONTENT.length - 1)] + ', ';
     }
   }
@@ -156,8 +155,7 @@ var renderGoodsCard = function (goods) {
     goodsElement.classList.add('card--in-stock');
   } else if (goods.amount <= 5 && goods.amount >= 1) {
     goodsElement.classList.add('card--little');
-  }
-  else{
+  } else{
     goodsElement.classList.add('card--soon');
   }
   goodsElement.querySelector('.card__img').src = goods.picture;
@@ -167,8 +165,7 @@ var renderGoodsCard = function (goods) {
   goodsElement.querySelector('.star__count').textContent = goods.rating.number;
   if (goods.nutritionFacts.sugar === true) {
     goodsElement.querySelector('.card__characteristic').textContent = 'Содержит сахар';
-  }
-  else {
+  } else {
     goodsElement.querySelector('.card__characteristic').textContent = 'Без сахара';
   }
   goodsElement.querySelector('.card__composition-list').textContent = goods.nutritionFacts.contents;
