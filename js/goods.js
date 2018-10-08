@@ -90,6 +90,7 @@ var GOODS_RAITING_NUMBER_MAX = 900;
 var GOODS_ENERGY_MIN = 70;
 var GOODS_ENERGY_MAX = 500;
 var GOODS_COUNT = 26;
+var CART_COUNT = 3;
 var goodsData = [];
 
 var getRandomInRange = function (min, max) {
@@ -133,18 +134,46 @@ var generateGood = function () {
   };
 };
 
+var getRaitingClass = function (rating) {
+  if (rating === 1) {
+    return 'stars__rating--one';
+  }
+  else if (rating === 2) {
+    return 'stars__rating--two';
+  }
+  else if (rating === 3) {
+    return 'stars__rating--three';
+  }
+  else if (rating === 4) {
+    return 'stars__rating--four';
+  }
+  else if (rating === 5) {
+    return 'stars__rating--five';
+  }
+};
+
 var renderGoodsCard = function (goods) {
   var goodsElement = goodTemplate.cloneNode(true);
   if (goods.amount > 5) {
-    goodsElement.querySelector('.catalog__card').classList.add('card--in-stock');
+    goodsElement.classList.add('card--in-stock');
   } else if (goods.amount <= 5 && goods.amount >= 1) {
-    goodsElement.querySelector('.catalog__card').classList.add('card--little');
+    goodsElement.classList.add('card--little');
   }
   else{
-    goodsElement.querySelector('.catalog__card').classList.add('card--soon');
+    goodsElement.classList.add('card--soon');
   }
+  goodsElement.querySelector('.card__img').src = goods.picture;
   goodsElement.querySelector('.card__title').textContent = goods.name;
-
+  goodsElement.querySelector('.card__price').innerHTML = goods.price + ' ' + '<span class="card__currency">₽</span><span class="card__weight">/ ' + goods.weight + ' Г</span>';
+  goodsElement.querySelector('.stars__rating').classList.add(getRaitingClass(goods.rating.value));
+  goodsElement.querySelector('.star__count').textContent = goods.rating.number;
+  if (goods.nutritionFacts.sugar === true) {
+    goodsElement.querySelector('.card__characteristic').textContent = 'Содержит сахар';
+  }
+  else {
+    goodsElement.querySelector('.card__characteristic').textContent = 'Без сахара';
+  }
+  goodsElement.querySelector('.card__composition-list').textContent = goods.nutritionFacts.contents;
   return goodsElement;
 };
 
@@ -177,4 +206,30 @@ addElementToFragment();
 
 goodsListElement.appendChild(fragment);
 
-//debugger
+var goodsCards = document.querySelector('.goods__cards');
+goodsCards.classList.remove('goods__cards--empty');
+var goodsCardEmpty = document.querySelector('.goods__card-empty');
+goodsCardEmpty.classList.add('visually-hidden');
+
+var createOrder = function (items) {
+  var order = document.querySelector('.goods__cards');
+  var orderTemplate = document.querySelector('#card-order').content.querySelector('.card-order');
+
+  for (var i = 0; i < items; i++) {
+    var orderCard = orderTemplate.cloneNode(true);
+
+    var orderTitle = orderTemplate.querySelector('.card-order__title');
+    orderTitle.textContent = goodsData[i].name;
+
+    var orderPic = orderTemplate.querySelector('.card-order__img');
+    orderPic.src = goodsData[i].picture;
+
+    var orderPrice = orderTemplate.querySelector('.card-order__price');
+    orderPrice.textContent = goodsData[i].price + '₽';
+    order.appendChild(orderCard);
+  }
+};
+
+createOrder(CART_COUNT);
+
+debugger
