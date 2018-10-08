@@ -232,4 +232,3 @@ var createOrder = function (items) {
 
 createOrder(CART_COUNT);
 
-debugger
